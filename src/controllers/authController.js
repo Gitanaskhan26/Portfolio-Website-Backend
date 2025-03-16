@@ -3,10 +3,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 exports.adminLogin = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     
     try {
-        const admin = await User.findOne({ username });
+        const admin = await User.findOne({ email });
         if (!admin || !(await bcrypt.compare(password, admin.password))) {
             return res.status(401).json({ message: "Invalid credentials" });
         }
